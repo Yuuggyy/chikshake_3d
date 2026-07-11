@@ -238,165 +238,45 @@ FROM auth.users
 ON CONFLICT (id) DO NOTHING;
 
 -- ────────────────────────────────────────────────────────────
--- ÉTAPE 9 : MENU O POETA (10 catégories, 130+ plats)
--- ────────────────────────────────────────────────────────────
-
+-- ÉTAPE 9 : MENU CHIC SHAKE (poulet croustillant, milkshakes, burgers - Galleria)
 INSERT INTO public.categories (nom, description, emoji, ordre, actif) VALUES
-('Entrées - Antipasti',       'Entrées et antipasti italiens',        '🥗', 1, true),
-('Salades',                   'Salades composées',                    '🥬', 2, true),
-('Pâtes',                     'Pâtes simples',                        '🍝', 3, true),
-('Pâtes, Gnocchi et Risotto', 'Pâtes fraîches, gnocchi et risottos',  '🍚', 4, true),
-('Pizzas au Feu de Bois',     'Pizzas cuites au feu de bois',         '🍕', 5, true),
-('Viandes et Volailles',      'Viandes grillées et volailles',        '🥩', 6, true),
-('Poissons et Crustacés',     'Poissons et fruits de mer',            '🐟', 7, true),
-('Sauces et Accompagnements', 'Sauces et garnitures',                 '🍟', 8, true),
-('Desserts',                  'Douceurs et desserts italiens',        '🍰', 9, true),
-('Cocktails et Boissons',     'Cocktails, vins et boissons fraîches', '🍹', 10, true)
+('Poulet Croustillant','Crispy chicken - la specialite maison','🍗',1,true),
+('Burgers','Burgers artisanaux','🍔',2,true),
+('Milkshakes','Milkshakes cremeux et genereux','🥛',3,true),
+('Combos','Formules repas completes','🍱',4,true),
+('Accompagnements','Frites, onion rings, sauces','🍟',5,true),
+('Boissons','Sodas, jus, eau','🥤',6,true)
 ON CONFLICT DO NOTHING;
 
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Assiettes de Spécialités Italiennes', 'Légumes grillés, charcuterie', 26.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 1),
-('Carpaccio de Bœuf roquette et Parmesan', NULL, 24.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 2),
-('Avocat vinaigrette',  NULL, 13.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 3),
-('Avocat crevettes grises', NULL, 26.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 4),
-('Jambon de Parme et melon', NULL, 26.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 5),
-('Cocktail de Crevettes', NULL, 22.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 6),
-('Carpaccio de Capitaine', NULL, 20.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 7),
-('Tartare de Saumon al Fresco', NULL, 25.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 8),
-('Saumon fumé et ses accompagnements', NULL, 26.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 9),
-('Cossas ail et piment', NULL, 18.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 10),
-('Cuisses de Grenouille à l''ail', NULL, 22.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 11),
-('Calamare Fritti',     NULL, 22.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 12),
-('Scampi Fritti',       NULL, 22.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 13),
-('Eperlan Fritti (Ndakala)', '100gr', 14.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 14),
-('Parmigiana',          'Aubergines gratinées', 22.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 15),
-('Mêlée de Champignons et Cossas au Basilic', NULL, 23.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 16),
-('Minestrone',          NULL, 13.00, (SELECT id FROM categories WHERE nom='Entrées - Antipasti'), NULL, true, 17)
+INSERT INTO public.produits (nom, description, prix, categorie_id, disponible, ordre) VALUES
+('Crispy Chicken Box 4pcs','4 morceaux poulet croustillant, epices uniques',10.00,(SELECT id FROM categories WHERE nom='Poulet Croustillant'),true,1),
+('Crispy Chicken Box 8pcs','8 morceaux poulet croustillant',18.00,(SELECT id FROM categories WHERE nom='Poulet Croustillant'),true,2),
+('Crispy Chicken Sandwich','Filet croustillant, sauce maison, pain brioche',9.00,(SELECT id FROM categories WHERE nom='Poulet Croustillant'),true,3),
+('Ailes Croustillantes x6','Ailes epicees, sauce buffalo ou ranch',10.00,(SELECT id FROM categories WHERE nom='Poulet Croustillant'),true,4),
+('Ailes Croustillantes x12','Grand format ailes croustillantes',18.00,(SELECT id FROM categories WHERE nom='Poulet Croustillant'),true,5),
+('Crispy Strips x5','Lanieres de poulet croustillantes',9.00,(SELECT id FROM categories WHERE nom='Poulet Croustillant'),true,6),
+('Cheese Burger Chicken','Filet poulet croustillant, cheddar, sauce maison',9.00,(SELECT id FROM categories WHERE nom='Burgers'),true,1),
+('Cheese Burger Beef','Steak boeuf, double cheddar, cornichons',10.00,(SELECT id FROM categories WHERE nom='Burgers'),true,2),
+('Double Smash Burger','Double patty boeuf, sauce signature Chic Shake',13.00,(SELECT id FROM categories WHERE nom='Burgers'),true,3),
+('Spicy Burger','Steak epice, jalapeños, sauce piquante',9.50,(SELECT id FROM categories WHERE nom='Burgers'),true,4),
+('Milkshake Vanille','Lait, glace vanille, creme fouettee',6.00,(SELECT id FROM categories WHERE nom='Milkshakes'),true,1),
+('Milkshake Chocolat','Lait, glace chocolat, sauce chocolat',6.00,(SELECT id FROM categories WHERE nom='Milkshakes'),true,2),
+('Milkshake Fraise','Lait, glace fraise, coulis fraise',6.00,(SELECT id FROM categories WHERE nom='Milkshakes'),true,3),
+('Milkshake Oreo','Lait, glace vanille, biscuits Oreo ecrases',7.00,(SELECT id FROM categories WHERE nom='Milkshakes'),true,4),
+('Milkshake Caramel Beurre Sale','Lait, glace vanille, caramel beurre sale',7.00,(SELECT id FROM categories WHERE nom='Milkshakes'),true,5),
+('Combo Crispy 4pcs','Box 4pcs + frites + boisson',15.00,(SELECT id FROM categories WHERE nom='Combos'),true,1),
+('Combo Burger + Shake','Burger au choix + milkshake au choix',16.00,(SELECT id FROM categories WHERE nom='Combos'),true,2),
+('Combo Famille','Box 12pcs + frittes x2 + boissons x4',35.00,(SELECT id FROM categories WHERE nom='Combos'),true,3),
+('Frittes Dorees','Pommes de terre frites, sel fin',3.00,(SELECT id FROM categories WHERE nom='Accompagnements'),true,1),
+('Onion Rings x6','Rondelles d oignon panees dorees',4.00,(SELECT id FROM categories WHERE nom='Accompagnements'),true,2),
+('Coleslaw','Salade de chou cremeuse maison',2.50,(SELECT id FROM categories WHERE nom='Accompagnements'),true,3),
+('Sauce Dip Supplementaire','Ranch, buffalo, barbecue ou curry',1.00,(SELECT id FROM categories WHERE nom='Accompagnements'),true,4),
+('Coca Cola 33cl',NULL,2.50,(SELECT id FROM categories WHERE nom='Boissons'),true,1),
+('Fanta ou Sprite 33cl',NULL,2.50,(SELECT id FROM categories WHERE nom='Boissons'),true,2),
+('Jus de Fruit Frais','Mangue, passion, ananas',3.50,(SELECT id FROM categories WHERE nom='Boissons'),true,3),
+('Eau Minerale 75cl',NULL,2.00,(SELECT id FROM categories WHERE nom='Boissons'),true,4)
 ON CONFLICT DO NOTHING;
 
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Salade Roquette et Parmesan', NULL, 20.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 1),
-('Burrata alla Caprese', 'Tomates, pignons, basilic', 26.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 2),
-('Salade Niçoise',      'Thon, œufs, olives, tomates, anchois', 22.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 3),
-('Salade Chèvre',       'Chèvre, pommes, raisins secs, granola', 22.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 4),
-('Salade Avé Cesare',   'Poulet, avocat, parmesan', 22.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 5),
-('Salade Mixte',        'Tomates, concombres, oignons', 20.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 6),
-('Salade Italienne',    'Tomates, olives, roquette, jambon de Parme', 22.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 7),
-('Salade au Foie Gras', 'Foie gras, figues, poires, pain d''épices', 26.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 8),
-('Salade Océane',       'Saumon fumé, crevettes, tomates, chicon, cœur de palmier', 26.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 9),
-('Salade Halloumi',     'Tomates, menthe, oignons, courgettes grillées, halloumi', 26.00, (SELECT id FROM categories WHERE nom='Salades'), NULL, true, 10)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Nature',              NULL, 13.00, (SELECT id FROM categories WHERE nom='Pâtes'), NULL, true, 1),
-('Pesto',               'Pignons, basilic', 20.00, (SELECT id FROM categories WHERE nom='Pâtes'), NULL, true, 2),
-('Carbonara',           'Lardons, œuf, crème fraîche', 25.00, (SELECT id FROM categories WHERE nom='Pâtes'), NULL, true, 3),
-('Pomodoro',            'Tomate', 20.00, (SELECT id FROM categories WHERE nom='Pâtes'), NULL, true, 4),
-('Bolognese',           'Ragoût de bœuf', 20.00, (SELECT id FROM categories WHERE nom='Pâtes'), NULL, true, 5),
-('Arrabbiata',          'Tomate, pili', 20.00, (SELECT id FROM categories WHERE nom='Pâtes'), NULL, true, 6),
-('Puttanesca',          'Anchois, thon, câpres, tomates, olive noire', 20.00, (SELECT id FROM categories WHERE nom='Pâtes'), NULL, true, 7),
-('Quattro Formaggi',    NULL, 20.00, (SELECT id FROM categories WHERE nom='Pâtes'), NULL, true, 8)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Spaghetti Crudaiola', 'Tomate fraîche froide, mozzarella, roquette, pesto', 26.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 1),
-('Spaghetti al Pollo',  'Poulet, champignons, crème fraîche', 26.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 2),
-('Penne Saumon Fumé, Crème', NULL, 26.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 3),
-('Spaghetti ai Frutti di Mare', 'Fruits de mer', 34.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 4),
-('Spaghetti alle Vongole', 'Coquillages', 34.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 5),
-('Spaghetti ai Cartoccio', 'Fruits de mer, sauce tomate', 26.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 6),
-('Penne Foie Gras',     NULL, 34.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 7),
-('Tagliatelle Primavera', 'Tomate fraîche, champignons, courgettes', 26.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 8),
-('Tagliatelle ai Funghi', 'Cèpes, crème fraîche', 28.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 9),
-('Tagliatelle Mare e Monti', 'Champignons, petit pois, courgettes, cossa, tomates', 26.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 10),
-('Lasagna Maison',      'Bœuf', 26.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 11),
-('Ravioli Maison Carne', 'Bœuf, ou Spinaci e Ricotta, ou Cèpes (Solo, Duo ou Trio)', 26.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 12),
-('Gnocchi',             'Sauce au choix', 28.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 13),
-('Risotto ai Funghi ou al San Daniele', 'Cèpes, ou jambon San Daniele', 28.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 14),
-('Risotto façon Paella', 'Riz safran, fruits de mer, saucisse de bœuf', 28.00, (SELECT id FROM categories WHERE nom='Pâtes, Gnocchi et Risotto'), NULL, true, 15)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Focaccia',            'Sel, épices', 12.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 1),
-('Margherita',          'Tomate, mozzarella, origan', 22.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 2),
-('Prosciutto',          'Tomate, mozzarella, jambon, champignons, olives vertes', 23.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 3),
-('Calzone',             'Tomate, mozzarella, jambon, parmesan + un ingrédient au choix', 23.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 4),
-('Diavola',             'Tomate, poivrons, mozzarella, salami piquant, olives', 23.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 5),
-('Tonino',              'Tomate, mozzarella, thon, oignons, olives', 23.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 6),
-('Hawaïenne',           'Tomate, mozzarella, jambon, ananas', 23.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 7),
-('Vegetariana',         'Tomates fraîches, mozzarella, champignons, oignons, olives, légumes grillés', 23.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 8),
-('Polo',                'Tomate, mozzarella, poulet', 23.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 9),
-('Salmone',             'Crème fraîche, mozzarella, saumon fumé, aneth', 26.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 10),
-('Reggiana',            'Tomate, mozzarella, parmesan, roquette, jambon de Parme', 26.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 11),
-('Porcini',             'Crème fraîche, mozzarella, cèpes', 26.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 12),
-('Pollo e Peperoni',    'Crème fraîche, mozzarella, poulet, poivrons', 26.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 13),
-('Scampi',              'Crème fraîche, mozzarella, scampi', 29.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 14),
-('Cossas',              'Crème fraîche, mozzarella, ail, cossas (écrevisses)', 26.00, (SELECT id FROM categories WHERE nom='Pizzas au Feu de Bois'), NULL, true, 15)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Filet de Bœuf grillé', 'Sauce au choix', 38.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 1),
-('Entrecôte grillée',   'Sauce au choix', 34.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 2),
-('Côte de Bœuf (350gr)', 'Sauce au choix', 45.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 3),
-('Brochette de Bœuf',   NULL, 28.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 4),
-('Escalope de Veau',    'Sauce au choix', 32.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 5),
-('Côte de Veau grillée', 'Sauce au choix', 34.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 6),
-('Piccata de Veau',     'Sauce citron, câpres', 32.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 7),
-('Saltimbocca alla Romana', 'Veau, jambon de Parme, sauge, vin blanc', 34.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 8),
-('Poulet grillé',       'Sauce au choix', 24.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 9),
-('Brochette de Poulet', NULL, 22.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 10),
-('Poulet à la Diable',  'Mariné, grillé, épices', 26.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 11),
-('Côtelettes d''Agneau', 'Sauce au choix', 38.00, (SELECT id FROM categories WHERE nom='Viandes et Volailles'), NULL, true, 12)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Capitaine grillé',    'Sauce au choix', 28.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 1),
-('Saumon grillé',       'Sauce au choix', 34.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 2),
-('Dorade grillée',      'Sauce au choix', 30.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 3),
-('Sole meunière',       'Beurre, citron', 30.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 4),
-('Crevettes grillées',  'Sauce au choix', 32.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 5),
-('Langoustines grillées', NULL, 38.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 6),
-('Homard grillé',       'Sauce au choix', 55.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 7),
-('Calamars grillés',    NULL, 28.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 8),
-('Brochette de Fruits de Mer', 'Crevettes, calamars, poisson', 32.00, (SELECT id FROM categories WHERE nom='Poissons et Crustacés'), NULL, true, 9)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Sauce Béarnaise',     NULL, 5.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 1),
-('Sauce Poivre',        NULL, 5.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 2),
-('Sauce Champignons',   NULL, 5.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 3),
-('Sauce Roquefort',     NULL, 5.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 4),
-('Frites',              NULL, 8.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 5),
-('Légumes grillés',     NULL, 9.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 6),
-('Riz',                 NULL, 7.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 7),
-('Gratin dauphinois',   NULL, 9.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 8),
-('Épinards à la crème', NULL, 8.00, (SELECT id FROM categories WHERE nom='Sauces et Accompagnements'), NULL, true, 9)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Tiramisu Maison',     NULL, 12.00, (SELECT id FROM categories WHERE nom='Desserts'), NULL, true, 1),
-('Panna Cotta',         'Coulis de fruits rouges', 10.00, (SELECT id FROM categories WHERE nom='Desserts'), NULL, true, 2),
-('Profiteroles',        'Glace vanille, sauce chocolat', 12.00, (SELECT id FROM categories WHERE nom='Desserts'), NULL, true, 3),
-('Crème Brûlée',        NULL, 10.00, (SELECT id FROM categories WHERE nom='Desserts'), NULL, true, 4),
-('Salade de Fruits Frais', NULL, 10.00, (SELECT id FROM categories WHERE nom='Desserts'), NULL, true, 5),
-('Glaces et Sorbets',   '2 boules au choix', 8.00, (SELECT id FROM categories WHERE nom='Desserts'), NULL, true, 6),
-('Fondant au Chocolat', 'Coulant, glace vanille', 12.00, (SELECT id FROM categories WHERE nom='Desserts'), NULL, true, 7),
-('Mousse au Chocolat',  NULL, 10.00, (SELECT id FROM categories WHERE nom='Desserts'), NULL, true, 8)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public.produits (nom, description, prix, categorie_id, image_url, disponible, ordre) VALUES
-('Bière Primus',        '65cl', 4.00,  (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 1),
-('Bière Turbo King',    '65cl', 4.00,  (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 2),
-('Bière Doppel',        '33cl', 4.00,  (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 3),
-('Bière importée',      '33cl', 5.00,  (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 4),
-('Vin rouge / blanc',   'Verre', 8.00, (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 5),
-('Jus de fruit frais',  NULL, 6.00,   (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 6),
-('Cocktail Maison',     NULL, 10.00,  (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 7),
-('Cappuccino',          NULL, 5.00,   (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 8),
-('Espresso',            NULL, 3.00,   (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 9),
-('Soda / Eau Gazeuse',  NULL, 3.00,   (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 10),
-('Eau Plate 75cl',      NULL, 3.00,   (SELECT id FROM categories WHERE nom='Cocktails et Boissons'), NULL, true, 11)
-ON CONFLICT DO NOTHING;
 
 -- ────────────────────────────────────────────────────────────
 -- VÉRIFICATION FINALE
@@ -405,4 +285,4 @@ SELECT
   (SELECT count(*) FROM public.categories) AS nb_categories,
   (SELECT count(*) FROM public.produits)   AS nb_produits,
   (SELECT count(*) FROM public.admin_profiles) AS nb_admins,
-  'Setup O Poeta terminé OK' AS status;
+  'Setup terminé OK' AS status;
